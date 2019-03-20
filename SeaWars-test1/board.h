@@ -13,6 +13,7 @@ private:
 public:
 	void launch_ship(Ship &ship);
 	bool can_launch_ship(int column, int row, char direction, int size);
+	bool shipIsOnBoard(int column, int row, char direction, int size);
 	char getCellStatus(int i, int g);
 	void show();
 	Board();

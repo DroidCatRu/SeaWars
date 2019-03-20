@@ -38,13 +38,20 @@ void Board::launch_ship(Ship &ship) {
 
 bool Board::can_launch_ship(int column, int row, char direction, int size)
 {
+	if (!shipIsOnBoard(column, row, direction, size)) {
+		return false;
+	}
+
+	return true;
+}
+
+bool Board::shipIsOnBoard(int column, int row, char direction, int size) {
 	if (direction == 'H') {
 		for (uint16_t j = 0; j < size; j++) {
 			if ((column + size) >= 10)
 				return false;
 			else if (gameboard.at(column).at(row + j).isEmpty() == false)
 				return false;
-			//else if (gameboard.at(row).at(column + j).isShip() == true)
 		}
 	}
 	else {
