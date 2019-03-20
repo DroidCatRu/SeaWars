@@ -25,14 +25,14 @@ void Board::launch_ship(Ship &ship) {
 
 		if (ship.getDir() == h) {
 			for (uint16_t j = 0, ship_size = ship.getSize(); j < ship_size; j++) {
-				gameboard.at(ship.getPos().x + j).at(ship.getPos().y).initShip();
-				gameboard.at(ship.getPos().x + j).at(ship.getPos().y).initVisible();
+				gameboard.at(ship.getPos().y).at(ship.getPos().x + j).initShip();
+				gameboard.at(ship.getPos().y).at(ship.getPos().x + j).initVisible();
 			}
 		}
 		else {
 			for (uint16_t j = 0, ship_size = ship.getSize(); j < ship_size; j++) {
-				gameboard.at(ship.getPos().x).at(ship.getPos().y + j).initShip();
-				gameboard.at(ship.getPos().x).at(ship.getPos().y + j).initVisible();
+				gameboard.at(ship.getPos().y + j).at(ship.getPos().x).initShip();
+				gameboard.at(ship.getPos().y + j).at(ship.getPos().x).initVisible();
 			}
 		}
 	}
@@ -52,7 +52,7 @@ bool Board::shipIsOnBoard(int column, int row, direction direction, int size) {
 		for (uint16_t j = 0; j < size; j++) {
 			if ((column + size) > 10)
 				return false;
-			else if (gameboard.at(column).at(row + j).isEmpty() == false)
+			else if (!gameboard.at(row).at(column + j).isEmpty())
 				return false;
 		}
 	}
@@ -60,7 +60,7 @@ bool Board::shipIsOnBoard(int column, int row, direction direction, int size) {
 		for (uint16_t j = 0; j < size; j++) {
 			if ((row + size) > 10)
 				return false;
-			else if (gameboard.at(column + j).at(row).isEmpty() == false)
+			else if (!gameboard.at(row + j).at(column).isEmpty())
 				return false;
 		}
 	}
@@ -73,7 +73,7 @@ bool Board::shipIsNear() {
 }
 
 char Board::getCellStatus(int i, int g) {
-	return gameboard.at(g).at(i).getStatus();
+	return gameboard.at(i).at(g).getStatus();
 }
 
 void Board::show() {

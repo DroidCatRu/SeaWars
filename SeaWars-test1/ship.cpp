@@ -3,7 +3,7 @@
 
 
 Ship::Ship(Position &pos, int length, char direct): coordinates(pos), size(length), dir(setDir(direct)) {
-	killed = 0;
+	killed = false;
 }
 
 direction Ship::setDir(char direct) {
