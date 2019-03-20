@@ -14,7 +14,7 @@ public:
 	void launch_ship(Ship &ship);
 	bool can_launch_ship(int column, int row, direction direction, int size);
 	bool shipIsOnBoard(int column, int row, direction direction, int size);
-	bool shipIsNear();
+	bool shipIsNear(int column, int row, direction direction, int size);
 	char getCellStatus(int i, int g);
 	void show();
 	Board();

@@ -130,6 +130,7 @@ void Game::showboards() {
 			if (player.getBoardStatus(i, g) == 'X' || player.getBoardStatus(i, g) == 'x') {
 				setcolor(RED, BLACK);
 				cout << setw(2) << player.getBoardStatus(i, g);
+				setcolor(WHITE, BLACK);
 			}
 			else {
 				setcolor(WHITE, BLACK);
