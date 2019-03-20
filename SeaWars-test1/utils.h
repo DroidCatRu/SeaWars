@@ -1,4 +1,9 @@
 #pragma once
+#include <ctime>
+#include <cstdlib>
+#include <map>
+#include <windows.h>
+
 struct Position {
 	int x;
 	int y;
@@ -11,3 +16,4 @@ public:
 	~utils();
 };
 
+void setcolor(unsigned int color, unsigned int background_color);

@@ -58,6 +58,7 @@ bool Game::playerHasShips() {
 void Game::initplayersboard() {
 	for (int size = 4, count = 1; size >= 1, count <= 4; size--, count++) {
 		for (int f = count; f >= 1; f--) {
+			showboards();
 			cout << "Let's launch your " << size << "-size ship" << endl;
 			cout << "Enter position of the first cell (for example, A2) of ship and direction (h or v):" << endl;
 			Position pi;
@@ -108,7 +109,15 @@ void Game::showboards() {
 	for (int i = 0; i < 10; i++) {
 		cout << setw(3) << i + 1;
 		for (int g = 0; g < 10; g++) {
-			cout << setw(3) << player.getBoardStatus(i, g);
+			if (player.getBoardStatus(i, g) == 'X' || player.getBoardStatus(i, g) == 'x') {
+				setcolor(9, 0);
+				cout << setw(3) << player.getBoardStatus(i, g);
+			}
+			else {
+				setcolor(15, 0);
+				cout << setw(3) << player.getBoardStatus(i, g);
+			}
+			
 		}
 
 		/*cout << setw(5) << i + 1;

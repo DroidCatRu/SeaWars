@@ -38,7 +38,7 @@ char cell::getStatus() {
 		return '*';
 	}
 	else if (ship) {
-		return '+';
+		return 'X';
 	}
 	else if (empty) {
 		return '*';
