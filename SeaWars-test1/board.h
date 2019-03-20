@@ -12,8 +12,9 @@ private:
 	vector< vector<cell> > gameboard;
 public:
 	void launch_ship(Ship &ship);
-	bool can_launch_ship(int column, int row, char direction, int size);
-	bool shipIsOnBoard(int column, int row, char direction, int size);
+	bool can_launch_ship(int column, int row, direction direction, int size);
+	bool shipIsOnBoard(int column, int row, direction direction, int size);
+	bool shipIsNear();
 	char getCellStatus(int i, int g);
 	void show();
 	Board();

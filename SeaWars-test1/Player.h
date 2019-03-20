@@ -8,7 +8,7 @@ private:
 	Board board;
 public:
 	void launch_ship(Ship &ship);
-	bool can_launch_ship(int column, int row, char direction, int size);
+	bool can_launch_ship(int column, int row, direction direction, int size);
 	char getBoardStatus(int i, int g);
 	bool hasShips();
 	void resetShipsCount();

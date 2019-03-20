@@ -19,7 +19,7 @@ direction Ship::setDir(char direct) {
 Position Ship::getPos() {
 	return coordinates;
 }
-char Ship::getDir() {
+direction Ship::getDir() {
 	return dir;
 }
 int Ship::getSize() {

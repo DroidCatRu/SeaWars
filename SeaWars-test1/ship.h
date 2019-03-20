@@ -15,7 +15,7 @@ private:
 public:
 	Ship(Position &pos, int length, char direct);
 	Position getPos();
-	char getDir();
+	direction getDir();
 	int getSize();
 	direction setDir(char direct);
 	~Ship();

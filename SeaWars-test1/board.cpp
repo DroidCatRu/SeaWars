@@ -36,19 +36,19 @@ void Board::launch_ship(Ship &ship) {
 	}
 }
 
-bool Board::can_launch_ship(int column, int row, char direction, int size)
+bool Board::can_launch_ship(int column, int row, direction direction, int size)
 {
-	if (!shipIsOnBoard(column, row, direction, size)) {
+	if (!shipIsOnBoard(column, row, direction, size) || shipIsNear()) {
 		return false;
 	}
 
 	return true;
 }
 
-bool Board::shipIsOnBoard(int column, int row, char direction, int size) {
-	if (direction == 'H') {
+bool Board::shipIsOnBoard(int column, int row, direction direction, int size) {
+	if (direction == h) {
 		for (uint16_t j = 0; j < size; j++) {
-			if ((column + size) >= 10)
+			if ((column + size) > 10)
 				return false;
 			else if (gameboard.at(column).at(row + j).isEmpty() == false)
 				return false;
@@ -64,6 +64,10 @@ bool Board::shipIsOnBoard(int column, int row, char direction, int size) {
 	}
 
 	return true;
+}
+
+bool Board::shipIsNear() {
+	return false;
 }
 
 char Board::getCellStatus(int i, int g) {

@@ -15,7 +15,7 @@ void Player::launch_ship(Ship &ship) {
 	board.launch_ship(ship);
 }
 
-bool Player::can_launch_ship(int column, int row, char direction, int size) {
+bool Player::can_launch_ship(int column, int row, direction direction, int size) {
 	if(board.can_launch_ship(column, row, direction, size))
 		return true;
 	else
