@@ -40,11 +40,11 @@ void Board::launch_ship(Ship &ship) {
 
 bool Board::can_launch_ship(int column, int row, direction direction, int size)
 {
-	if (!shipIsOnBoard(column, row, direction, size) || shipIsNear()) {
-		return false;
+	if (shipIsOnBoard(column, row, direction, size) && !shipIsNear(column, row, direction, size)) {
+		return true;
 	}
 
-	return true;
+	return false;
 }
 
 bool Board::shipIsOnBoard(int column, int row, direction direction, int size) {
@@ -68,7 +68,208 @@ bool Board::shipIsOnBoard(int column, int row, direction direction, int size) {
 	return true;
 }
 
-bool Board::shipIsNear() {
+bool Board::shipIsNear(int column, int row, direction direction, int size) {
+	if (direction == h) {
+		
+		//vertical checking
+		if (row - 1 < 0) {
+			for (uint16_t j = 0; j < size; j++) {
+				if (!gameboard.at(row + 1).at(column + j).isEmpty()) {
+					return true;
+				}
+			}
+		}
+		else if (row + 1 > 9) {
+			for (uint16_t j = 0; j < size; j++) {
+				if (!gameboard.at(row - 1).at(column + j).isEmpty()) {
+					return true;
+				}
+			}
+		}
+		else {
+			for (uint16_t j = 0; j < size; j++) {
+				if (!gameboard.at(row - 1).at(column + j).isEmpty() || !gameboard.at(row + 1).at(column + j).isEmpty()) {
+					return true;
+				}
+			}
+		}
+
+		//horizontal checking
+		if (column - 1 < 0) {
+			if (!gameboard.at(row).at(column + size).isEmpty()) {
+				return true;
+			}
+		}
+		else if (column + size > 9) {
+			if (!gameboard.at(row).at(column - 1).isEmpty()) {
+				return true;
+			}
+		}
+		else {
+			if (!gameboard.at(row).at(column + size).isEmpty() || !gameboard.at(row).at(column - 1).isEmpty()) {
+				return true;
+			}
+		}
+
+		//diagonal checking
+		//top left corner
+		if (row - 1 < 0 && column - 1 < 0) {
+			if (!gameboard.at(row + 1).at(column + size).isEmpty()) {
+				return true;
+			}
+		}
+		//top right corner
+		else if (row - 1 < 0 && column + size > 9) {
+			if (!gameboard.at(row + 1).at(column - 1).isEmpty()) {
+				return true;
+			}
+		}
+		//bottom left corner
+		else if (row + 1 > 9 && column - 1 < 0) {
+			if (!gameboard.at(row - 1).at(column + size).isEmpty()) {
+				return true;
+			}
+		}
+		//bottom right corner
+		else if (row + 1 > 9 && column + size > 9) {
+			if (!gameboard.at(row - 1).at(column - 1).isEmpty()) {
+				return true;
+			}
+		}
+		//left border of the field
+		else if (column - 1 < 0 && row >= 0 && row <= 9) {
+			if (!gameboard.at(row - 1).at(column + size).isEmpty() || !gameboard.at(row + 1).at(column + size).isEmpty()) {
+				return true;
+			}
+		}
+		//right border of the field
+		else if (column + size > 9 && row >= 0 && row <= 9) {
+			if (!gameboard.at(row - 1).at(column - 1).isEmpty() || !gameboard.at(row + 1).at(column - 1).isEmpty()) {
+				return true;
+			}
+		}
+		//top border of the field
+		else if ( row - 1 < 0 && column - 1 >= 0 && column + size <= 9) {
+			if (!gameboard.at(row + 1).at(column - 1).isEmpty() || !gameboard.at(row + 1).at(column + size).isEmpty()) {
+				return true;
+			}
+		}
+		//bottom border of the field
+		else if (row + 1 > 9 && column - 1 >= 0 && column + size <= 9) {
+			if (!gameboard.at(row - 1).at(column - 1).isEmpty() || !gameboard.at(row - 1).at(column + size).isEmpty()) {
+				return true;
+			}
+		}
+		//not in the corner and not near the border of the field
+		else {
+			if (!gameboard.at(row - 1).at(column + size).isEmpty() ||
+				!gameboard.at(row + 1).at(column + size).isEmpty() ||
+				!gameboard.at(row + 1).at(column - 1).isEmpty() ||
+				!gameboard.at(row - 1).at(column - 1).isEmpty()) {
+				return true;
+			}
+		}
+	}
+	else {
+		//vertical checking
+		if (row - 1 < 0) {
+			if (!gameboard.at(row + size).at(column).isEmpty()) {
+				return true;
+			}
+		}
+		else if (row + size > 9) {
+			if (!gameboard.at(row - 1).at(column).isEmpty()) {
+				return true;
+			}
+		}
+		else {
+			if (!gameboard.at(row - 1).at(column).isEmpty() || !gameboard.at(row + size).at(column).isEmpty()) {
+				return true;
+			}
+		}
+
+		//horizontal checking
+		if (column - 1 < 0) {
+			for (uint16_t j = 0; j < size; j++) {
+				if (!gameboard.at(row + j).at(column + 1).isEmpty()) {
+					return true;
+				}
+			}
+		}
+		else if (column + 1 > 9) {
+			for (uint16_t j = 0; j < size; j++) {
+				if (!gameboard.at(row + j).at(column - 1).isEmpty()) {
+					return true;
+				}
+			}
+		}
+		else {
+			for (uint16_t j = 0; j < size; j++) {
+				if (!gameboard.at(row + j).at(column + 1).isEmpty() || !gameboard.at(row + j).at(column - 1).isEmpty()) {
+					return true;
+				}
+			}
+		}
+
+		//diagonal checking
+		//top left corner
+		if (row - 1 < 0 && column - 1 < 0) {
+			if (!gameboard.at(row + size).at(column + 1).isEmpty()) {
+				return true;
+			}
+		}
+		//top right corner
+		else if (row - 1 < 0 && column + 1 > 9) {
+			if (!gameboard.at(row + size).at(column - 1).isEmpty()) {
+				return true;
+			}
+		}
+		//bottom left corner
+		else if (row + size > 9 && column - 1 < 0) {
+			if (!gameboard.at(row - 1).at(column + 1).isEmpty()) {
+				return true;
+			}
+		}
+		//bottom right corner
+		else if (row + size > 9 && column + 1 > 9) {
+			if (!gameboard.at(row - 1).at(column - 1).isEmpty()) {
+				return true;
+			}
+		}
+		//left border of the field
+		else if (column - 1 < 0 && row - 1 >= 0 && row + size <= 9) {
+			if (!gameboard.at(row - 1).at(column + 1).isEmpty() || !gameboard.at(row + size).at(column + 1).isEmpty()) {
+				return true;
+			}
+		}
+		//right border of the field
+		else if (column + 1 > 9 && row - 1 >= 0 && row + size <= 9) {
+			if (!gameboard.at(row - 1).at(column - 1).isEmpty() || !gameboard.at(row + size).at(column - 1).isEmpty()) {
+				return true;
+			}
+		}
+		//top border of the field
+		else if (row - 1 < 0 && column - 1 >= 0 && column + 1 <= 9) {
+			if (!gameboard.at(row + size).at(column - 1).isEmpty() || !gameboard.at(row + size).at(column + 1).isEmpty()) {
+				return true;
+			}
+		}
+		//bottom border of the field
+		else if (row + size > 9 && column - 1 >= 0 && column + 1 <= 9) {
+			if (!gameboard.at(row - 1).at(column - 1).isEmpty() || !gameboard.at(row - 1).at(column + 1).isEmpty()) {
+				return true;
+			}
+		}
+		//not in the corner
+		else {
+			if (!gameboard.at(row - 1).at(column - 1).isEmpty() ||
+				!gameboard.at(row - 1).at(column + 1).isEmpty() ||
+				!gameboard.at(row + size).at(column - 1).isEmpty() ||
+				!gameboard.at(row + size).at(column + 1).isEmpty()) {
+				return true;
+			}
+		}
+	}
 	return false;
 }
 
