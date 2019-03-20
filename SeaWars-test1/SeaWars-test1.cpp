@@ -1,7 +1,4 @@
-﻿// SeaWars-test1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include "pch.h"
+﻿#include "pch.h"
 #include <iostream>
 #include <iomanip>
 #include "Game.h"
