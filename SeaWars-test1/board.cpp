@@ -26,11 +26,13 @@ void Board::launch_ship(Ship &ship) {
 		if (ship.getDir() == h) {
 			for (uint16_t j = 0, ship_size = ship.getSize(); j < ship_size; j++) {
 				gameboard.at(ship.getPos().x + j).at(ship.getPos().y).initShip();
+				gameboard.at(ship.getPos().x + j).at(ship.getPos().y).initVisible();
 			}
 		}
 		else {
 			for (uint16_t j = 0, ship_size = ship.getSize(); j < ship_size; j++) {
 				gameboard.at(ship.getPos().x).at(ship.getPos().y + j).initShip();
+				gameboard.at(ship.getPos().x).at(ship.getPos().y + j).initVisible();
 			}
 		}
 	}

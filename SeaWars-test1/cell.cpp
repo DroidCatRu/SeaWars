@@ -6,6 +6,7 @@ cell::cell() {
 	empty = false;
 	unknown = true;
 	ship = false;
+	visible = false;
 }
 
 
@@ -17,14 +18,21 @@ void cell::initEmpty() {
 	unknown = false;
 	ship = false;
 }
+
 void cell::initShip() {
 	ship = true;
 	unknown = false;
 	empty = false;
 }
+
+void cell::initVisible() {
+	visible = true;
+}
+
 bool cell::isEmpty() {
 	return empty;
 }
+
 bool cell::isShooted() {
 	return !unknown;
 }
@@ -34,13 +42,15 @@ bool cell::isShip() {
 }
 
 char cell::getStatus() {
-	if (unknown) {
-		return '*';
+	if (visible) {
+		if (ship) {
+			return 'X';
+		}
+		else if (empty) {
+			return '*';
+		}
 	}
-	else if (ship) {
-		return 'X';
-	}
-	else if (empty) {
-		return '*';
+	else {
+		return '.';
 	}
 }
