@@ -62,12 +62,14 @@ void Game::initplayersboard() {
 			cout << "Enter position of the first cell (for example, A2) of ship and direction (h or v):" << endl;
 			Position pi;
 			char x;
-			cin >> x >> pi.y;
-			if (x > 'a' && x < 'j') {
-				pi.x = x - 'a' + 1;
+			int y;
+			cin >> x >> y;
+			pi.y = y - 1;
+			if (x >= 'a' && x <= 'j') {
+				pi.x = x - 'a';
 			}
-			else if (x > 'A' && x < 'J') {
-				pi.x = x - 'A' + 1;
+			else if (x >= 'A' && x <= 'J') {
+				pi.x = x - 'A';
 			}
 			char direct;
 			cin >> direct;

@@ -25,12 +25,12 @@ void Board::launch_ship(Ship &ship) {
 
 		if (ship.getDir() == h) {
 			for (uint16_t j = 0, ship_size = ship.getSize(); j < ship_size; j++) {
-				gameboard.at(ship.getPos().y).at(ship.getPos().x + j).initShip();
+				gameboard.at(ship.getPos().x + j).at(ship.getPos().y).initShip();
 			}
 		}
 		else {
 			for (uint16_t j = 0, ship_size = ship.getSize(); j < ship_size; j++) {
-				gameboard.at(ship.getPos().y + j).at(ship.getPos().x).initShip();
+				gameboard.at(ship.getPos().x).at(ship.getPos().y + j).initShip();
 			}
 		}
 	}
@@ -40,9 +40,9 @@ bool Board::can_launch_ship(int column, int row, char direction, int size)
 {
 	if (direction == 'H') {
 		for (uint16_t j = 0; j < size; j++) {
-			if ((column + size) > 10)
+			if ((column + size) >= 10)
 				return false;
-			else if (gameboard.at(row).at(column + j).isEmpty() == false)
+			else if (gameboard.at(column).at(row + j).isEmpty() == false)
 				return false;
 			//else if (gameboard.at(row).at(column + j).isShip() == true)
 		}
@@ -51,7 +51,7 @@ bool Board::can_launch_ship(int column, int row, char direction, int size)
 		for (uint16_t j = 0; j < size; j++) {
 			if ((row + size) > 10)
 				return false;
-			else if (gameboard.at(row + j).at(column).isEmpty() == false)
+			else if (gameboard.at(column + j).at(row).isEmpty() == false)
 				return false;
 		}
 	}
