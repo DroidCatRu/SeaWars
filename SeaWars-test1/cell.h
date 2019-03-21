@@ -1,6 +1,5 @@
 #pragma once
-class cell
-{
+class cell {
 private:
 	bool empty;
 	bool unknown;

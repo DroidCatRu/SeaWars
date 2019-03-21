@@ -19,20 +19,24 @@ Board::~Board() {
 
 }
 
-void Board::launch_ship(Ship &ship) {
+void Board::launch_ship(Ship &ship, bool visible) {
 	if (can_launch_ship(ship.getPos().x, ship.getPos().y, ship.getDir(), ship.getSize())) {
 		ships.push_back(ship);
 
 		if (ship.getDir() == h) {
 			for (uint16_t j = 0, ship_size = ship.getSize(); j < ship_size; j++) {
 				gameboard.at(ship.getPos().y).at(ship.getPos().x + j).initShip();
-				gameboard.at(ship.getPos().y).at(ship.getPos().x + j).initVisible();
+				if (visible) {
+					gameboard.at(ship.getPos().y).at(ship.getPos().x + j).initVisible();
+				}
 			}
 		}
 		else {
 			for (uint16_t j = 0, ship_size = ship.getSize(); j < ship_size; j++) {
 				gameboard.at(ship.getPos().y + j).at(ship.getPos().x).initShip();
-				gameboard.at(ship.getPos().y + j).at(ship.getPos().x).initVisible();
+				if (visible) {
+					gameboard.at(ship.getPos().y + j).at(ship.getPos().x).initVisible();
+				}
 			}
 		}
 	}
@@ -279,4 +283,8 @@ char Board::getCellStatus(int i, int g) {
 
 void Board::show() {
 
+}
+
+void Board::initVisible(int i, int g) {
+	gameboard.at(g).at(i).initVisible();
 }

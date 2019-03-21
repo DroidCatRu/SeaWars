@@ -11,8 +11,8 @@ Player::~Player() {
 
 }
 
-void Player::launch_ship(Ship &ship) {
-	board.launch_ship(ship);
+void Player::launch_ship(Ship &ship, bool visible) {
+	board.launch_ship(ship, visible);
 }
 
 bool Player::can_launch_ship(int column, int row, direction direction, int size) {
@@ -40,4 +40,8 @@ void Player::resetShipsCount() {
 
 void Player::decrementShipsCount() {
 	shipscount--;
+}
+
+void Player::initVisible(int i, int g) {
+	board.initVisible(i, g);
 }

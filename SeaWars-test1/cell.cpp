@@ -50,7 +50,5 @@ char cell::getStatus() {
 			return '*';
 		}
 	}
-	else {
-		return '.';
-	}
+	return '+';
 }

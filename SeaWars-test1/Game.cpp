@@ -83,7 +83,7 @@ void Game::initplayersboard() {
 				char x = 'a';
 				int y = 1;
 				cin >> x >> y;
-				if (x < 'a' || x > 'j' || y < 1 || y > 10) {
+				if (x < 'A' || (x > 'J' && x < 'a') || x > 'j' || y < 1 || y > 10) {
 					cout << "Try again" << endl;
 					cin.clear();
 					++f;
@@ -106,7 +106,7 @@ void Game::initplayersboard() {
 					}
 					Ship ship(pi, size, direct);
 					if (player.can_launch_ship(pi.x, pi.y, ship.getDir(), size)) {
-						player.launch_ship(ship);
+						player.launch_ship(ship, true);
 					}
 					else {
 						cout << "You can't launch ship here" << endl;
@@ -136,7 +136,7 @@ void Game::initplayersboard() {
 				}
 				Ship ship(pi, size, direct);
 				if (player.can_launch_ship(pi.x, pi.y, ship.getDir(), size)) {
-					player.launch_ship(ship);
+					player.launch_ship(ship, true);
 				}
 				else {
 					f++;
@@ -170,7 +170,7 @@ void Game::initpcboard() {
 			}
 			Ship ship(pi, size, direct);
 			if (pc.can_launch_ship(pi.x, pi.y, ship.getDir(), size)) {
-				pc.launch_ship(ship);
+				pc.launch_ship(ship, false);
 			}
 			else {
 				f++;
@@ -232,7 +232,26 @@ void Game::pcshoot() {
 }
 
 void Game::playershoot() {
+	char x = 'a';
+	int y = 1;
+	cin >> x >> y;
 
+	if (x < 'A' || (x > 'J' && x < 'a') || x > 'j' || y < 1 || y > 10) {
+		cout << "Try again" << endl;
+		cin.clear();
+	}
+	else {
+		y = y - 1;
+		if (x >= 'a' && x <= 'j') {
+			x = x - 'a';
+		}
+		else if (x >= 'A' && x <= 'J') {
+			x = x - 'A';
+		}
+
+		pc.initVisible(x, y);
+		showboards();
+	}
 }
 
 bool Game::again() {

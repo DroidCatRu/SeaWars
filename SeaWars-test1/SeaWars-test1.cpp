@@ -1,18 +1,22 @@
 ﻿#include "pch.h"
 #include <iostream>
 #include <iomanip>
+#include <ctime>
 #include "Game.h"
 #include "Player.h"
 
 using namespace std;
 
 int main() {
-
+	srand(time(NULL));
 	Game game;
 
 	game.start();
 	game.initplayersboard();
 	game.initpcboard();
+	while (1) {
+		game.playershoot();
+	}
 
 	/*while (1) {
 		game.start();
