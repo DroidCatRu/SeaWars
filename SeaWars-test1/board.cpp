@@ -281,10 +281,6 @@ char Board::getCellStatus(int i, int g) {
 	return gameboard.at(i).at(g).getStatus();
 }
 
-void Board::show() {
-
-}
-
 void Board::initVisible(int i, int g) {
 	gameboard.at(g).at(i).initVisible();
 }

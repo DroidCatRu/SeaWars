@@ -1,6 +1,6 @@
 #pragma once
 #include "utils.h"
-#include <string>
+#include <vector>
 
 using namespace std;
 enum direction { h, v };
@@ -10,7 +10,8 @@ private:
 	Position coordinates;
 	unsigned size;
 	direction dir;
-	string status;
+	vector<Position> cells;
+	vector<bool> status;
 	bool killed;
 public:
 	Ship(Position &pos, int length, char direct);
