@@ -13,13 +13,11 @@ int main() {
 	game.start();
 	game.initplayersboard();
 	game.initpcboard();
-	game.showboards();
 
 	/*while (1) {
 		game.start();
 		game.initplayersboard();
 		game.initpcboard();
-		game.showboards();
 		while (!game.over()) {
 			cout << "We're in game!" << endl;
 			game.playershoot();

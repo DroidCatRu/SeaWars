@@ -17,6 +17,7 @@ Game::~Game() {
 void Game::start() {
 	player.resetShipsCount();
 	pc.resetShipsCount();
+	showboards();
 }
 
 void Game::end() {
@@ -56,40 +57,81 @@ bool Game::playerHasShips() {
 }
 
 void Game::initplayersboard() {
+
+	cout << "If you wanna complete your board automatically, enter 'a'. Else enter 'm'" << endl;
+	char prof;
+	cin >> prof;
+	if (prof != 'a' && prof != 'm') {
+		cout << "You entered not right symbol, complete your board manually" << endl;
+		prof = 'm';
+	}
+
 	for (int size = 4, count = 1; size >= 1, count <= 4; size--, count++) {
 		for (int f = count; f >= 1; --f) {
-			showboards();
-			cout << "Let's launch your " << size << "-size ship" << endl;
-			if (size > 1) {
-				cout << "Enter position of the first cell (for example, A2) of ship and direction (h or v):" << endl;
-			}
-			else {
-				cout << "Enter position of cell (for example, A2):" << endl;
-			}
 
-			char direct = 'v';
-			char x = 'a';
-			int y = 1;
-			cin >> x >> y;
-			if (x < 'a' || x > 'j' || y < 1 || y > 10) {
-				cout << "Try again" << endl;
-				cin.clear();
-				++f;
+			if (prof == 'm') {
+
+				cout << "Let's launch your " << size << "-size ship" << endl;
+				if (size > 1) {
+					cout << "Enter position of the first cell (for example, A2) of ship and direction (h or v):" << endl;
+				}
+				else {
+					cout << "Enter position of cell (for example, A2):" << endl;
+				}
+
+				char direct = 'v';
+				char x = 'a';
+				int y = 1;
+				cin >> x >> y;
+				if (x < 'a' || x > 'j' || y < 1 || y > 10) {
+					cout << "Try again" << endl;
+					cin.clear();
+					++f;
+				}
+				else {
+					Position pi;
+					pi.y = y - 1;
+					if (x >= 'a' && x <= 'j') {
+						pi.x = x - 'a';
+					}
+					else if (x >= 'A' && x <= 'J') {
+						pi.x = x - 'A';
+					}
+					if (size > 1) {
+						cin >> direct;
+						if (direct != 'h' && direct != 'H' && direct != 'v' && direct != 'V') {
+							cout << "You entered not right direction, ship will be launched automatically in vertical position" << endl;
+							direct = 'v';
+						}
+					}
+					Ship ship(pi, size, direct);
+					if (player.can_launch_ship(pi.x, pi.y, ship.getDir(), size)) {
+						player.launch_ship(ship);
+					}
+					else {
+						cout << "You can't launch ship here" << endl;
+						f++;
+					}
+
+					showboards();
+				}
 			}
 			else {
+				char direct = 'v';
 				Position pi;
-				pi.y = y - 1;
-				if (x >= 'a' && x <= 'j') {
-					pi.x = x - 'a';
-				}
-				else if (x >= 'A' && x <= 'J') {
-					pi.x = x - 'A';
-				}
+
+				pi.y = rand() % 10;
+				pi.x = rand() % 10;
+
 				if (size > 1) {
-					cin >> direct;
-					if (direct != 'h' && direct != 'H' && direct != 'v' && direct != 'V') {
-						cout << "You entered not right direction, ship will be launched automatically in vertical position" << endl;
+					direct = rand() % 2;
+					switch (direct) {
+					case 0:
 						direct = 'v';
+						break;
+					case 1:
+						direct = 'h';
+						break;
 					}
 				}
 				Ship ship(pi, size, direct);
@@ -97,16 +139,45 @@ void Game::initplayersboard() {
 					player.launch_ship(ship);
 				}
 				else {
-					cout << "You can't launch ship here" << endl;
 					f++;
 				}
 			}
 		}
 	}
+	showboards();
 }
 
 void Game::initpcboard() {
+	for (int size = 4, count = 1; size >= 1, count <= 4; size--, count++) {
+		for (int f = count; f >= 1; --f) {
 
+			char direct = 'v';
+			Position pi;
+
+			pi.y = rand() % 10;
+			pi.x = rand() % 10;
+				
+			if (size > 1) {
+				direct = rand() % 2;
+				switch (direct) {
+				case 0:
+					direct = 'v';
+					break;
+				case 1:
+					direct = 'h';
+					break;
+				}
+			}
+			Ship ship(pi, size, direct);
+			if (pc.can_launch_ship(pi.x, pi.y, ship.getDir(), size)) {
+				pc.launch_ship(ship);
+			}
+			else {
+				f++;
+			}
+		}
+	}
+	showboards();
 }
 
 void Game::showboards() {
@@ -117,10 +188,10 @@ void Game::showboards() {
 		setcolor(WHITE, BLACK);
 		cout << setw(2) << i;
 	}
-	/*cout << "     ";
+	cout << "     ";
 	for (char i = 'A'; i <= 'A' + 9; i++) {
 		cout << setw(2) << i;
-	}*/
+	}
 	cout << endl;
 
 	for (int i = 0; i < 10; i++) {
@@ -135,17 +206,25 @@ void Game::showboards() {
 			else {
 				setcolor(WHITE, BLACK);
 				cout << setw(2) << player.getBoardStatus(i, g);
-			}
-			
+			}	
 		}
 
-		/*cout << setw(5) << i + 1;
+		cout << setw(5) << i + 1;
 		for (int g = 0; g < 10; g++) {
-			cout << setw(2) << player.getBoardStatus(i, g);
-		}*/
+			if (pc.getBoardStatus(i, g) == 'X' || pc.getBoardStatus(i, g) == 'x') {
+				setcolor(RED, BLACK);
+				cout << setw(2) << pc.getBoardStatus(i, g);
+				setcolor(WHITE, BLACK);
+			}
+			else {
+				setcolor(WHITE, BLACK);
+				cout << setw(2) << pc.getBoardStatus(i, g);
+			}
+		}
 
 		cout << endl;
 	}
+	cout << endl;
 }
 
 void Game::pcshoot() {
