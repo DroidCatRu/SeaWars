@@ -16,8 +16,8 @@ public:
 	void initplayersboard();
 	void initpcboard();
 	void showboards();
-	void playershoot();
-	void pcshoot();
+	bool playershoot();
+	bool pcshoot();
 	bool again();
 	Game();
 	~Game();

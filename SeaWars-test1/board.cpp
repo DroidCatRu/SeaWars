@@ -284,3 +284,7 @@ char Board::getCellStatus(int i, int g) {
 void Board::initVisible(int i, int g) {
 	gameboard.at(g).at(i).initVisible();
 }
+
+void Board::setKilled(int i, int g) {
+	gameboard.at(i).at(g).setKilled();
+}

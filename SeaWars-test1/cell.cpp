@@ -5,6 +5,7 @@
 cell::cell() {
 	empty = false;
 	unknown = true;
+	killed = false;
 	ship = false;
 	visible = false;
 }
@@ -41,10 +42,23 @@ bool cell::isShip() {
 	return ship;
 }
 
+bool cell::isKilled() {
+	return killed;
+}
+
+void cell::setKilled() {
+	killed = true;
+}
+
 char cell::getStatus() {
 	if (visible) {
 		if (ship) {
-			return 'X';
+			if (killed) {
+				return 'O';
+			}
+			else {
+				return 'X';
+			}
 		}
 		else if (empty) {
 			return '*';

@@ -14,6 +14,7 @@ public:
 	void resetShipsCount();
 	void decrementShipsCount();
 	void initVisible(int i, int g);
+	void setKilled(int i, int g);
 	Player();
 	~Player();
 };

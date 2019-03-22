@@ -11,30 +11,44 @@ int main() {
 	srand(time(NULL));
 	Game game;
 
-	game.start();
+	/*game.start();
 	game.initplayersboard();
 	game.initpcboard();
 	while (1) {
 		game.playershoot();
-	}
+	}*/
 
-	/*while (1) {
+	while (1) {
 		game.start();
 		game.initplayersboard();
 		game.initpcboard();
-		while (!game.over()) {
-			cout << "We're in game!" << endl;
-			game.playershoot();
-			game.showboards();
-			if (!game.pcHasShips()) {
-				continue;
-			}
-			else {
-				game.pcshoot();
-				game.showboards();
-				if (!game.playerHasShips()) {
-					continue;
+		bool gameover = false;
+		while (!gameover) {
+			gameover = game.over();
+			while(1) {
+				if (!game.playershoot()) {
+					break;
 				}
+				if (game.over()) {
+				gameover = true;
+				break;
+				}
+			}
+			if(gameover) {
+				break;
+			}
+			
+			while(1) {
+				if (!game.pcshoot()) {
+					break;
+				}
+				if (game.over()) {
+				gameover = true;
+				break;
+				}
+			}
+			if(gameover) {
+				break;
 			}
 		}
 
@@ -43,5 +57,5 @@ int main() {
 		if (!game.again()) {
 			return 0;
 		}
-	}*/
+	}
 }

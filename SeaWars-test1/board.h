@@ -17,6 +17,7 @@ public:
 	bool shipIsNear(int column, int row, direction direction, int size);
 	char getCellStatus(int i, int g);
 	void initVisible(int i, int g);
+	void setKilled(int i, int g);
 	Board();
 	~Board();
 };

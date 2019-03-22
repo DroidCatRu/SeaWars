@@ -4,6 +4,7 @@ private:
 	bool empty;
 	bool unknown;
 	bool ship;
+	bool killed;
 	bool visible;
 public:
 	void initEmpty();
@@ -12,6 +13,8 @@ public:
 	bool isEmpty();
 	bool isShip();
 	bool isShooted();
+	bool isKilled();
+	void setKilled();
 	char getStatus();
 	cell();
 	~cell();

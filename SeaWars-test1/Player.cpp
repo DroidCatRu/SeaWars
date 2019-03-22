@@ -44,3 +44,7 @@ void Player::decrementShipsCount() {
 void Player::initVisible(int i, int g) {
 	board.initVisible(i, g);
 }
+
+void Player::setKilled(int i, int g) {
+	board.setKilled(i, g);
+}

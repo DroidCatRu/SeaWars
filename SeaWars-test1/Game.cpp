@@ -180,6 +180,24 @@ void Game::initpcboard() {
 	showboards();
 }
 
+void print_line(Player &p, int i) {
+	for (int g = 0; g < 10; g++) {
+		if (p.getBoardStatus(i, g) == 'X' || p.getBoardStatus(i, g) == 'O') {
+			setcolor(RED, BLACK);
+			cout << setw(2) << p.getBoardStatus(i, g);
+		}
+		else if (p.getBoardStatus(i, g) == '*') {
+			setcolor(BLUE, BLACK);
+			cout << setw(2) << p.getBoardStatus(i, g);
+		}
+		else {
+			setcolor(WHITE, BLACK);
+			cout << setw(2) << p.getBoardStatus(i, g);
+		}
+		setcolor(WHITE, BLACK);
+	}
+}
+
 void Game::showboards() {
 	system("CLS");
 	cout << "It's your board and board of your enemy\n";
@@ -195,43 +213,41 @@ void Game::showboards() {
 	cout << endl;
 
 	for (int i = 0; i < 10; i++) {
-		setcolor(WHITE, BLACK);
 		cout << setw(2) << i + 1;
-		for (int g = 0; g < 10; g++) {
-			if (player.getBoardStatus(i, g) == 'X' || player.getBoardStatus(i, g) == 'x') {
-				setcolor(RED, BLACK);
-				cout << setw(2) << player.getBoardStatus(i, g);
-				setcolor(WHITE, BLACK);
-			}
-			else {
-				setcolor(WHITE, BLACK);
-				cout << setw(2) << player.getBoardStatus(i, g);
-			}	
-		}
+		print_line(player, i);
 
 		cout << setw(5) << i + 1;
-		for (int g = 0; g < 10; g++) {
-			if (pc.getBoardStatus(i, g) == 'X' || pc.getBoardStatus(i, g) == 'x') {
-				setcolor(RED, BLACK);
-				cout << setw(2) << pc.getBoardStatus(i, g);
-				setcolor(WHITE, BLACK);
-			}
-			else {
-				setcolor(WHITE, BLACK);
-				cout << setw(2) << pc.getBoardStatus(i, g);
-			}
-		}
+		print_line(pc, i);
 
 		cout << endl;
 	}
 	cout << endl;
 }
 
-void Game::pcshoot() {
+bool Game::pcshoot() {
+	char x = rand() % 10;
+	int y = rand() % 10;
 
+	if (player.getBoardStatus(y, x) == 'X') { //live ship cell
+		player.setKilled(y, x);
+		showboards();
+		return true;
+	}
+	else if (player.getBoardStatus(y, x) == 'O') { //killed ship cell
+		showboards();
+		return true;
+	}
+	if (player.getBoardStatus(y, x) == '+') { //empty cell
+		player.initVisible(x, y);
+		showboards();
+		return false;
+	}
+	//shoot again
+	showboards();
+	return true;
 }
 
-void Game::playershoot() {
+bool Game::playershoot() {
 	char x = 'a';
 	int y = 1;
 	cin >> x >> y;
@@ -249,9 +265,26 @@ void Game::playershoot() {
 			x = x - 'A';
 		}
 
-		pc.initVisible(x, y);
-		showboards();
+		if (pc.getBoardStatus(y, x) == '+') {
+			pc.initVisible(x, y);
+			if (pc.getBoardStatus(y, x) == 'X') { //live ship cell
+				pc.setKilled(y, x);
+				showboards();
+				return true;
+			}
+			else if (pc.getBoardStatus(y, x) == 'O') { //killed ship cell
+				showboards();
+				return true;
+			}
+			else if(pc.getBoardStatus(y, x) == '*') { //empty cell
+				showboards();
+				return false;
+			}
+		}
+		//shoot again
 	}
+	showboards();
+	return true;
 }
 
 bool Game::again() {
