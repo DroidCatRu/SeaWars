@@ -19,9 +19,8 @@ Board::~Board() {
 
 }
 
-void Board::launch_ship(Ship &ship, bool visible) {
+void Board::launch_ship(Ship ship, bool visible) {
 	if (can_launch_ship(ship.getPos().x, ship.getPos().y, ship.getDir(), ship.getSize())) {
-		ships.push_back(ship);
 
 		if (ship.getDir() == h) {
 			for (uint16_t j = 0, ship_size = ship.getSize(); j < ship_size; j++) {
@@ -39,6 +38,8 @@ void Board::launch_ship(Ship &ship, bool visible) {
 				}
 			}
 		}
+		Ship s = ship;
+		ships.push_back(s);
 	}
 }
 
@@ -285,6 +286,38 @@ void Board::initVisible(int i, int g) {
 	gameboard.at(g).at(i).initVisible();
 }
 
-void Board::setKilled(int i, int g) {
+int Board::setKilled(int i, int g) {
 	gameboard.at(i).at(g).setKilled();
+	int f = 0;
+	while (f < 10) {
+		int z = 0;
+		int s = ships.at(f).getSize();
+		while (z < s) {
+			//cout << "Ship size= " << s << " f= " << f << " z= " << z << endl;
+			if (ships.at(f).getCellPos(z).y == i && ships.at(f).getCellPos(z).x == g) {
+				z++;
+				break;
+			}
+			z++;
+		}
+		z--;
+		if (ships.at(f).getCellPos(z).y == i && ships.at(f).getCellPos(z).x == g) {
+			//cout << "Cell found: f=" << f << " z= " << z << endl;
+			ships.at(f).setCellStatus(z);
+			break;
+		}
+		f++;
+	}
+
+
+	if (ships.at(f).isKilled()) {
+		cout << "Ship killed!" << endl;
+		return f;
+	}
+
+	return -1;
+}
+
+Ship Board::getShip(int i) {
+	return ships.at(i);
 }

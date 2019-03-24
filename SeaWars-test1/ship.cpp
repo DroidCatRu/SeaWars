@@ -32,6 +32,26 @@ direction Ship::setDir(char direct) {
 Position Ship::getPos() {
 	return coordinates;
 }
+
+Position Ship::getCellPos(int i) {
+	return cells.at(i);
+}
+
+void Ship::setCellStatus(int i) {
+	status.at(i) = false;
+	bool t = true;
+	for (unsigned int g = 0; g < size; g++) {
+		if (status.at(g) == true) {
+			t = false;
+		}
+	}
+	killed = t;
+}
+
+bool Ship::isKilled() {
+	return killed;
+}
+
 direction Ship::getDir() {
 	return dir;
 }

@@ -16,7 +16,10 @@ private:
 public:
 	Ship(Position &pos, int length, char direct);
 	Position getPos();
+	Position getCellPos(int i);
 	direction getDir();
+	void setCellStatus(int i);
+	bool isKilled();
 	int getSize();
 	direction setDir(char direct);
 	~Ship();

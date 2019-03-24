@@ -3,7 +3,10 @@
 
 
 Player::Player() {
-
+	shipscount = 10;
+	shootsuccess = false;
+	lastpcshoot = NULL;
+	lastshootsuccess = NULL;
 }
 
 Player::~Player() {
@@ -37,6 +40,10 @@ void Player::resetShipsCount() {
 	shipscount = 10;
 }
 
+int Player::getShipsCount() {
+	return shipscount;
+}
+
 void Player::decrementShipsCount() {
 	shipscount--;
 }
@@ -45,6 +52,14 @@ void Player::initVisible(int i, int g) {
 	board.initVisible(i, g);
 }
 
-void Player::setKilled(int i, int g) {
-	board.setKilled(i, g);
+int Player::setKilled(int i, int g) {
+	int f = board.setKilled(i, g);
+	if (f != -1) {
+		decrementShipsCount();
+	}
+	return f;
+}
+
+Ship Player::getShip(int i) {
+	return board.getShip(i);
 }

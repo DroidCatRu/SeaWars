@@ -8,15 +8,8 @@
 using namespace std;
 
 int main() {
-	srand(time(NULL));
+	srand((int)time(NULL));
 	Game game;
-
-	/*game.start();
-	game.initplayersboard();
-	game.initpcboard();
-	while (1) {
-		game.playershoot();
-	}*/
 
 	while (1) {
 		game.start();
