@@ -1,38 +1,47 @@
 ﻿#include "pch.h"
 #include <iostream>
 #include <iomanip>
+#include <ctime>
 #include "Game.h"
 #include "Player.h"
 
 using namespace std;
 
 int main() {
-
+	srand((int)time(NULL));
 	Game game;
 
-	game.start();
-	game.initplayersboard();
-	game.initpcboard();
-	game.showboards();
-
-	/*while (1) {
+	while (1) {
 		game.start();
 		game.initplayersboard();
 		game.initpcboard();
-		game.showboards();
-		while (!game.over()) {
-			cout << "We're in game!" << endl;
-			game.playershoot();
-			game.showboards();
-			if (!game.pcHasShips()) {
-				continue;
-			}
-			else {
-				game.pcshoot();
-				game.showboards();
-				if (!game.playerHasShips()) {
-					continue;
+		bool gameover = false;
+		while (!gameover) {
+			gameover = game.over();
+			while(1) {
+				if (!game.playershoot()) {
+					break;
 				}
+				if (game.over()) {
+				gameover = true;
+				break;
+				}
+			}
+			if(gameover) {
+				break;
+			}
+			
+			while(1) {
+				if (!game.pcshoot()) {
+					break;
+				}
+				if (game.over()) {
+				gameover = true;
+				break;
+				}
+			}
+			if(gameover) {
+				break;
 			}
 		}
 
@@ -41,5 +50,5 @@ int main() {
 		if (!game.again()) {
 			return 0;
 		}
-	}*/
+	}
 }

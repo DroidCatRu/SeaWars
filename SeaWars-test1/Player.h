@@ -4,15 +4,23 @@
 
 class Player {
 private:
-	int shipscount = 10;
+	int shipscount;
 	Board board;
+	Position lastpcshoot;
+	Position lastshootsuccess;
+	bool shootsuccess;
+	//Ship lastshooted;
 public:
-	void launch_ship(Ship &ship);
+	void launch_ship(Ship &ship, bool visible);
 	bool can_launch_ship(int column, int row, direction direction, int size);
 	char getBoardStatus(int i, int g);
 	bool hasShips();
 	void resetShipsCount();
 	void decrementShipsCount();
+	int getShipsCount();
+	void initVisible(int i, int g);
+	int setKilled(int i, int g);
+	Ship getShip(int i);
 	Player();
 	~Player();
 };

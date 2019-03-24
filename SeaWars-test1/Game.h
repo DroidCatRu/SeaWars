@@ -3,8 +3,7 @@
 #include "ship.h"
 #include "utils.h"
 
-class Game
-{
+class Game {
 private:
 	Player player, pc;
 public:
@@ -15,9 +14,10 @@ public:
 	bool playerHasShips();
 	void initplayersboard();
 	void initpcboard();
+	void showShipPerimeter(Ship ship, Player &player);
 	void showboards();
-	void playershoot();
-	void pcshoot();
+	bool playershoot();
+	bool pcshoot();
 	bool again();
 	Game();
 	~Game();
