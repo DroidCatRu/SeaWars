@@ -9,9 +9,10 @@ using namespace std;
 
 int main() {
 	srand((int)time(NULL));
-	Game game;
 
 	while (1) {
+		Game game;
+
 		game.start();
 		game.initplayersboard();
 		game.initpcboard();

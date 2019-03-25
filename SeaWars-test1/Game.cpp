@@ -200,8 +200,9 @@ void print_line(Player &p, int i) {
 
 void Game::showboards() {
 	system("CLS");
-	/*COORD coord{ 0,0 };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);*/
+	//COORD coord{ 0,0 };
+	//COORD in{ 0,16 };
+	//SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	cout << "It's your board and board of your enemy\n";
 	cout << "  ";
 	for (char i = 'A'; i <= 'A' + 9; i++) {
@@ -225,6 +226,7 @@ void Game::showboards() {
 	}
 	cout << endl;
 	cout << "Enemy ships left: " << pc.getShipsCount() << endl << endl;
+	//SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), in);
 }
 
 void Game::showShipPerimeter(Ship ship, Player &player) {
