@@ -225,176 +225,21 @@ void Game::showboards() {
 		cout << endl;
 	}
 	cout << endl;
-	cout << "Enemy ships left: " << pc.getShipsCount() << endl << endl;
+	cout << "Your ships left: " << player.getShipsCount() << ", your score: " << player.getScore() << endl;
+	cout << "Enemy ships left: " << pc.getShipsCount() << ", enemy's score: " << pc.getScore() << endl << endl;
 	//SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), in);
 }
 
 void Game::showShipPerimeter(Ship ship, bool p) {
-	direction direction = ship.getDir();
-	int row = ship.getPos().y;
-	int column = ship.getPos().x;
-	int size = ship.getSize();
-
+	
 	Player *pl;
 	if (p == true)
 		pl = &player;
 	else
 		pl = &pc;
 
+	pl->showShipPerimeter(ship);
 
-	if (direction == h) {
-
-		//vertical checking
-		if (row - 1 < 0) {
-			for (uint16_t j = 0; j < size; j++) {
-				pl->initVisible(column + j, row + 1);
-			}
-		}
-		else if (row + 1 > 9) {
-			for (uint16_t j = 0; j < size; j++) {
-				pl->initVisible(column + j, row - 1);
-			}
-		}
-		else {
-			for (uint16_t j = 0; j < size; j++) {
-				pl->initVisible(column + j, row - 1);
-				pl->initVisible(column + j, row + 1);
-			}
-		}
-
-		//horizontal checking
-		if (column - 1 < 0) {
-			pl->initVisible(column + size, row);
-		}
-		else if (column + size > 9) {
-			pl->initVisible(column - 1, row);
-		}
-		else {
-			pl->initVisible(column + size, row);
-			pl->initVisible(column - 1, row);
-		}
-
-		//diagonal checking
-		//top left corner
-		if (row - 1 < 0 && column - 1 < 0) {
-			pl->initVisible(column + size, row + 1);
-		}
-		//top right corner
-		else if (row - 1 < 0 && column + size > 9) {
-			pl->initVisible(column - 1, row + 1);
-		}
-		//bottom left corner
-		else if (row + 1 > 9 && column - 1 < 0) {
-			pl->initVisible(column + size, row - 1);
-		}
-		//bottom right corner
-		else if (row + 1 > 9 && column + size > 9) {
-			pl->initVisible(column - 1, row - 1);
-		}
-		//left border of the field
-		else if (column - 1 < 0 && row >= 0 && row <= 9) {
-			pl->initVisible(column + size, row - 1);
-			pl->initVisible(column + size, row + 1);
-		}
-		//right border of the field
-		else if (column + size > 9 && row >= 0 && row <= 9) {
-			pl->initVisible(column - 1, row - 1);
-			pl->initVisible(column - 1, row + 1);
-		}
-		//top border of the field
-		else if (row - 1 < 0 && column - 1 >= 0 && column + size <= 9) {
-			pl->initVisible(column - 1, row + 1);
-			pl->initVisible(column + size, row + 1);
-		}
-		//bottom border of the field
-		else if (row + 1 > 9 && column - 1 >= 0 && column + size <= 9) {
-			pl->initVisible(column - 1, row - 1);
-			pl->initVisible(column + size, row - 1);
-		}
-		//not in the corner and not near the border of the field
-		else {
-			pl->initVisible(column + size, row - 1);
-			pl->initVisible(column + size, row + 1);
-			pl->initVisible(column - 1, row + 1);
-			pl->initVisible(column - 1, row - 1);
-		}
-	}
-	else {
-		//vertical checking
-		if (row - 1 < 0) {
-			pl->initVisible(column, row + size);
-		}
-		else if (row + size > 9) {
-			pl->initVisible(column, row - 1);
-		}
-		else {
-			pl->initVisible(column, row - 1);
-			pl->initVisible(column, row + size);
-		}
-
-		//horizontal checking
-		if (column - 1 < 0) {
-			for (uint16_t j = 0; j < size; j++) {
-				pl->initVisible(column + 1, row + j);
-			}
-		}
-		else if (column + 1 > 9) {
-			for (uint16_t j = 0; j < size; j++) {
-				pl->initVisible(column - 1, row + j);
-			}
-		}
-		else {
-			for (uint16_t j = 0; j < size; j++) {
-				pl->initVisible(column + 1, row + j);
-				pl->initVisible(column - 1, row + j);
-			}
-		}
-
-		//diagonal checking
-		//top left corner
-		if (row - 1 < 0 && column - 1 < 0) {
-			pl->initVisible(column + 1, row + size);
-		}
-		//top right corner
-		else if (row - 1 < 0 && column + 1 > 9) {
-			pl->initVisible(column - 1, row + size);
-		}
-		//bottom left corner
-		else if (row + size > 9 && column - 1 < 0) {
-			pl->initVisible(column + 1, row - 1);
-		}
-		//bottom right corner
-		else if (row + size > 9 && column + 1 > 9) {
-			pl->initVisible(column - 1, row - 1);
-		}
-		//left border of the field
-		else if (column - 1 < 0 && row - 1 >= 0 && row + size <= 9) {
-			pl->initVisible(column + 1, row - 1);
-			pl->initVisible(column + 1, row + size);
-		}
-		//right border of the field
-		else if (column + 1 > 9 && row - 1 >= 0 && row + size <= 9) {
-			pl->initVisible(column - 1, row - 1);
-			pl->initVisible(column - 1, row + size);
-		}
-		//top border of the field
-		else if (row - 1 < 0 && column - 1 >= 0 && column + 1 <= 9) {
-			pl->initVisible(column - 1, row + size);
-			pl->initVisible(column + 1, row + size);
-		}
-		//bottom border of the field
-		else if (row + size > 9 && column - 1 >= 0 && column + 1 <= 9) {
-			pl->initVisible(column - 1, row - 1);
-			pl->initVisible(column + 1, row - 1);
-		}
-		//not in the corner
-		else {
-			pl->initVisible(column - 1, row - 1);
-			pl->initVisible(column + 1, row - 1);
-			pl->initVisible(column - 1, row + size);
-			pl->initVisible(column + 1, row + size);
-		}
-	}
 }
 
 bool Game::pcshoot() {
@@ -404,11 +249,15 @@ bool Game::pcshoot() {
 	int x = pos.x;
 	int y = pos.y;
 
+	pc.removecell(x, y);
+
 	if (player.getBoardStatus(y, x) == 'X') { //live ship cell
+		pc.increaseScore();
 		int i = player.setKilled(y, x);
 		if (i != -1) {
 			Ship s = player.getShip(i);
 			showShipPerimeter(s, true);
+			pc.shipKilled(s);
 		}
 		else {
 			pc.wounded(y, x);
@@ -420,10 +269,14 @@ bool Game::pcshoot() {
 		showboards();
 		return true;
 	}
-	if (player.getBoardStatus(y, x) == '+') { //empty cell
+	else if (player.getBoardStatus(y, x) == '+') { //empty cell
 		player.initVisible(x, y);
+		pc.empty(y, x);
 		showboards();
 		return false;
+	}
+	else {
+		pc.empty(y, x);
 	}
 	//shoot again
 	showboards();
@@ -454,6 +307,7 @@ bool Game::playershoot() {
 		if (pc.getBoardStatus(y, x) == '+') {
 			pc.initVisible(x, y);
 			if (pc.getBoardStatus(y, x) == 'X') { //live ship cell
+				player.increaseScore();
 				int i = pc.setKilled(y, x);
 				if (i != -1) {
 					Ship s = pc.getShip(i);

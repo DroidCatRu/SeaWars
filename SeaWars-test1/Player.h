@@ -6,6 +6,7 @@ class Player {
 protected:
 	int shipscount;
 	Board board;
+	int score;
 public:
 	void launch_ship(Ship &ship, bool visible);
 	bool can_launch_ship(int column, int row, direction direction, int size);
@@ -15,8 +16,11 @@ public:
 	void decrementShipsCount();
 	int getShipsCount();
 	void initVisible(int i, int g);
+	void showShipPerimeter(Ship ship);
 	int setKilled(int i, int g);
 	Ship getShip(int i);
+	int getScore();
+	void increaseScore();
 	Player();
 	~Player();
 };
