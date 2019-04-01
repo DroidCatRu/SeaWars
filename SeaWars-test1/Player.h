@@ -3,13 +3,9 @@
 #include "ship.h"
 
 class Player {
-private:
+protected:
 	int shipscount;
 	Board board;
-	Position lastpcshoot;
-	Position lastshootsuccess;
-	bool shootsuccess;
-	//Ship lastshooted;
 public:
 	void launch_ship(Ship &ship, bool visible);
 	bool can_launch_ship(int column, int row, direction direction, int size);

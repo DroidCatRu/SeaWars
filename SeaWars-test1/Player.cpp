@@ -4,9 +4,6 @@
 
 Player::Player() {
 	shipscount = 10;
-	shootsuccess = false;
-	lastpcshoot = NULL;
-	lastshootsuccess = NULL;
 }
 
 Player::~Player() {
