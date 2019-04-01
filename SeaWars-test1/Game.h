@@ -1,11 +1,13 @@
 #pragma once
 #include "Player.h"
+#include "aiplayer.h"
 #include "ship.h"
 #include "utils.h"
 
 class Game {
 private:
-	Player player, pc;
+	Player player;
+	aiplayer pc;
 public:
 	void start();
 	void end();
@@ -14,7 +16,7 @@ public:
 	bool playerHasShips();
 	void initplayersboard();
 	void initpcboard();
-	void showShipPerimeter(Ship ship, Player &player);
+	void showShipPerimeter(Ship ship, bool p);
 	void showboards();
 	bool playershoot();
 	bool pcshoot();
