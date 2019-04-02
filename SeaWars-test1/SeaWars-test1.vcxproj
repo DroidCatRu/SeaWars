@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="aiplayer.h" />
     <ClInclude Include="board.h" />
     <ClInclude Include="cell.h" />
     <ClInclude Include="Game.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="aiplayer.cpp" />
     <ClCompile Include="board.cpp" />
     <ClCompile Include="cell.cpp" />
     <ClCompile Include="Game.cpp" />

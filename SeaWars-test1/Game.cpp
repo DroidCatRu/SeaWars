@@ -225,180 +225,42 @@ void Game::showboards() {
 		cout << endl;
 	}
 	cout << endl;
-	cout << "Enemy ships left: " << pc.getShipsCount() << endl << endl;
+	cout << "Your ships left: " << player.getShipsCount() << ", your score: " << player.getScore() << endl;
+	cout << "Enemy ships left: " << pc.getShipsCount() << ", enemy's score: " << pc.getScore() << endl << endl;
 	//SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), in);
 }
 
-void Game::showShipPerimeter(Ship ship, Player &player) {
-	direction direction = ship.getDir();
-	int row = ship.getPos().y;
-	int column = ship.getPos().x;
-	int size = ship.getSize();
+void Game::showShipPerimeter(Ship ship, bool p) {
+	
+	Player *pl;
+	if (p == true)
+		pl = &player;
+	else
+		pl = &pc;
 
-	if (direction == h) {
+	pl->showShipPerimeter(ship);
 
-		//vertical checking
-		if (row - 1 < 0) {
-			for (uint16_t j = 0; j < size; j++) {
-				player.initVisible(column + j, row + 1);
-			}
-		}
-		else if (row + 1 > 9) {
-			for (uint16_t j = 0; j < size; j++) {
-				player.initVisible(column + j, row - 1);
-			}
-		}
-		else {
-			for (uint16_t j = 0; j < size; j++) {
-				player.initVisible(column + j, row - 1);
-				player.initVisible(column + j, row + 1);
-			}
-		}
-
-		//horizontal checking
-		if (column - 1 < 0) {
-			player.initVisible(column + size, row);
-		}
-		else if (column + size > 9) {
-			player.initVisible(column - 1, row);
-		}
-		else {
-			player.initVisible(column + size, row);
-			player.initVisible(column - 1, row);
-		}
-
-		//diagonal checking
-		//top left corner
-		if (row - 1 < 0 && column - 1 < 0) {
-			player.initVisible(column + size, row + 1);
-		}
-		//top right corner
-		else if (row - 1 < 0 && column + size > 9) {
-			player.initVisible(column - 1, row + 1);
-		}
-		//bottom left corner
-		else if (row + 1 > 9 && column - 1 < 0) {
-			player.initVisible(column + size, row - 1);
-		}
-		//bottom right corner
-		else if (row + 1 > 9 && column + size > 9) {
-			player.initVisible(column - 1, row - 1);
-		}
-		//left border of the field
-		else if (column - 1 < 0 && row >= 0 && row <= 9) {
-			player.initVisible(column + size, row - 1);
-			player.initVisible(column + size, row + 1);
-		}
-		//right border of the field
-		else if (column + size > 9 && row >= 0 && row <= 9) {
-			player.initVisible(column - 1, row - 1);
-			player.initVisible(column - 1, row + 1);
-		}
-		//top border of the field
-		else if (row - 1 < 0 && column - 1 >= 0 && column + size <= 9) {
-			player.initVisible(column - 1, row + 1);
-			player.initVisible(column + size, row + 1);
-		}
-		//bottom border of the field
-		else if (row + 1 > 9 && column - 1 >= 0 && column + size <= 9) {
-			player.initVisible(column - 1, row - 1);
-			player.initVisible(column + size, row - 1);
-		}
-		//not in the corner and not near the border of the field
-		else {
-			player.initVisible(column + size, row - 1);
-			player.initVisible(column + size, row + 1);
-			player.initVisible(column - 1, row + 1);
-			player.initVisible(column - 1, row - 1);
-		}
-	}
-	else {
-		//vertical checking
-		if (row - 1 < 0) {
-			player.initVisible(column, row + size);
-		}
-		else if (row + size > 9) {
-			player.initVisible(column, row - 1);
-		}
-		else {
-			player.initVisible(column, row - 1);
-			player.initVisible(column, row + size);
-		}
-
-		//horizontal checking
-		if (column - 1 < 0) {
-			for (uint16_t j = 0; j < size; j++) {
-				player.initVisible(column + 1, row + j);
-			}
-		}
-		else if (column + 1 > 9) {
-			for (uint16_t j = 0; j < size; j++) {
-				player.initVisible(column - 1, row + j);
-			}
-		}
-		else {
-			for (uint16_t j = 0; j < size; j++) {
-				player.initVisible(column + 1, row + j);
-				player.initVisible(column - 1, row + j);
-			}
-		}
-
-		//diagonal checking
-		//top left corner
-		if (row - 1 < 0 && column - 1 < 0) {
-			player.initVisible(column + 1, row + size);
-		}
-		//top right corner
-		else if (row - 1 < 0 && column + 1 > 9) {
-			player.initVisible(column - 1, row + size);
-		}
-		//bottom left corner
-		else if (row + size > 9 && column - 1 < 0) {
-			player.initVisible(column + 1, row - 1);
-		}
-		//bottom right corner
-		else if (row + size > 9 && column + 1 > 9) {
-			player.initVisible(column - 1, row - 1);
-		}
-		//left border of the field
-		else if (column - 1 < 0 && row - 1 >= 0 && row + size <= 9) {
-			player.initVisible(column + 1, row - 1);
-			player.initVisible(column + 1, row + size);
-		}
-		//right border of the field
-		else if (column + 1 > 9 && row - 1 >= 0 && row + size <= 9) {
-			player.initVisible(column - 1, row - 1);
-			player.initVisible(column - 1, row + size);
-		}
-		//top border of the field
-		else if (row - 1 < 0 && column - 1 >= 0 && column + 1 <= 9) {
-			player.initVisible(column - 1, row + size);
-			player.initVisible(column + 1, row + size);
-		}
-		//bottom border of the field
-		else if (row + size > 9 && column - 1 >= 0 && column + 1 <= 9) {
-			player.initVisible(column - 1, row - 1);
-			player.initVisible(column + 1, row - 1);
-		}
-		//not in the corner
-		else {
-			player.initVisible(column - 1, row - 1);
-			player.initVisible(column + 1, row - 1);
-			player.initVisible(column - 1, row + size);
-			player.initVisible(column + 1, row + size);
-		}
-	}
 }
 
 bool Game::pcshoot() {
-	char x = rand() % 10;
-	int y = rand() % 10;
+
+	Position pos = pc.getShoot();
+
+	int x = pos.x;
+	int y = pos.y;
+
+	pc.removecell(x, y);
 
 	if (player.getBoardStatus(y, x) == 'X') { //live ship cell
+		pc.increaseScore();
 		int i = player.setKilled(y, x);
 		if (i != -1) {
 			Ship s = player.getShip(i);
-			showShipPerimeter(s, player);
+			showShipPerimeter(s, true);
+			pc.shipKilled(s);
+		}
+		else {
+			pc.wounded(y, x);
 		}
 		showboards();
 		return true;
@@ -407,10 +269,14 @@ bool Game::pcshoot() {
 		showboards();
 		return true;
 	}
-	if (player.getBoardStatus(y, x) == '+') { //empty cell
+	else if (player.getBoardStatus(y, x) == '+') { //empty cell
 		player.initVisible(x, y);
+		pc.empty(y, x);
 		showboards();
 		return false;
+	}
+	else {
+		pc.empty(y, x);
 	}
 	//shoot again
 	showboards();
@@ -441,10 +307,11 @@ bool Game::playershoot() {
 		if (pc.getBoardStatus(y, x) == '+') {
 			pc.initVisible(x, y);
 			if (pc.getBoardStatus(y, x) == 'X') { //live ship cell
+				player.increaseScore();
 				int i = pc.setKilled(y, x);
 				if (i != -1) {
 					Ship s = pc.getShip(i);
-					showShipPerimeter(s, pc);
+					showShipPerimeter(s, false);
 				}
 				showboards();
 				return true;

@@ -292,9 +292,9 @@ int Board::setKilled(int i, int g) {
 	while (f < 10) {
 		int z = 0;
 		int s = ships.at(f).getSize();
+		//looking for cell in ships array
 		while (z < s) {
-			//cout << "Ship size= " << s << " f= " << f << " z= " << z << endl;
-			if (ships.at(f).getCellPos(z).y == i && ships.at(f).getCellPos(z).x == g) {
+			if (ships.at(f).getCellPos(z).y == i && ships.at(f).getCellPos(z).x == g) { //found position
 				z++;
 				break;
 			}
@@ -302,19 +302,19 @@ int Board::setKilled(int i, int g) {
 		}
 		z--;
 		if (ships.at(f).getCellPos(z).y == i && ships.at(f).getCellPos(z).x == g) {
-			//cout << "Cell found: f=" << f << " z= " << z << endl;
-			ships.at(f).setCellStatus(z);
+			ships.at(f).setCellStatus(z); //set cell killed and check if the whole ship is killed
 			break;
 		}
 		f++;
 	}
 
-
+	//ship killed
 	if (ships.at(f).isKilled()) {
 		cout << "Ship killed!" << endl;
 		return f;
 	}
 
+	//ship not killed
 	return -1;
 }
 
