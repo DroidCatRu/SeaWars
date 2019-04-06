@@ -44,7 +44,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="SeaWars-test1.cpp">
+    <ClCompile Include="SeaWars.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="cell.cpp">
