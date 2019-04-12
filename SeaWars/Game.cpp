@@ -198,12 +198,25 @@ void print_line(Player &p, int i) {
 	}
 }
 
+void print_shipsleft(Player &p, int i) {
+	if (i < 4) {
+		setcolor(RED, BLACK);
+		for (int g = 1; g <= 4 - i; g++) {
+			cout << 'X';
+		}
+		setcolor(WHITE, BLACK);
+		cout << setw(3+i) << p.ShipsLeft(4 - i);
+	}
+}
+
 void Game::showboards() {
 	system("CLS");
+	setcolor(WHITE, BLACK);
 	//COORD coord{ 0,0 };
 	//COORD in{ 0,16 };
 	//SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-	cout << "It's your board and board of your enemy\n";
+	cout << setw(14) << "Your board:";
+	cout << setw(14 + 14) << "Enemy's board:" << endl;
 	cout << "  ";
 	for (char i = 'A'; i <= 'A' + 9; i++) {
 		setcolor(WHITE, BLACK);
@@ -213,6 +226,9 @@ void Game::showboards() {
 	for (char i = 'A'; i <= 'A' + 9; i++) {
 		cout << setw(2) << i;
 	}
+
+	cout << setw(16) << "Your ships:";
+	cout << setw(15) << "Enemy ships:";
 	cout << endl;
 
 	for (int i = 0; i < 10; i++) {
@@ -221,6 +237,12 @@ void Game::showboards() {
 
 		cout << setw(5) << i + 1;
 		print_line(pc, i);
+
+		cout << "     ";
+		print_shipsleft(player, i);
+
+		cout << "       ";
+		print_shipsleft(pc, i);
 
 		cout << endl;
 	}

@@ -18,6 +18,7 @@ public:
 	void initVisible(int i, int g);
 	void showShipPerimeter(Ship ship);
 	int setKilled(int i, int g);
+	int ShipsLeft(int size);
 	Ship getShip(int i);
 	int getScore();
 	void increaseScore();

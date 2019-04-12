@@ -310,12 +310,21 @@ int Board::setKilled(int i, int g) {
 
 	//ship killed
 	if (ships.at(f).isKilled()) {
-		cout << "Ship killed!" << endl;
 		return f;
 	}
 
 	//ship not killed
 	return -1;
+}
+
+int Board::ShipsLeft(int size) {
+	int left = 0;
+	for (int i = 0; i < ships.size(); i++) {
+		if (ships.at(i).getSize() == size && !ships.at(i).isKilled()) {
+			left++;
+		}
+	}
+	return left;
 }
 
 Ship Board::getShip(int i) {

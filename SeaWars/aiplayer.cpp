@@ -188,14 +188,19 @@ void aiplayer::empty(int y, int x) {
 			recpool.pop_back();
 		}
 		else if ((recpool.size() == 2 || recpool.size() == 4) && recpool.at(1).x == x && recpool.at(1).y == y) {
-			if (recpool.size() == 2) {
-				recpool.pop_back();
-				recpool.pop_back();
+			if ((recpool.at(0).x == x + 1) || (recpool.at(0).x == x - 1) || (recpool.at(0).y == y + 1) || (recpool.at(0).y == y - 1)) {
+				if (recpool.size() == 2) {
+					recpool.pop_back();
+					recpool.pop_back();
+				}
+				else {
+					recpool.at(0) = recpool.at(2);
+					recpool.at(1) = recpool.at(3);
+					recpool.pop_back();
+					recpool.pop_back();
+				}
 			}
 			else {
-				recpool.at(0) = recpool.at(2);
-				recpool.at(1) = recpool.at(3);
-				recpool.pop_back();
 				recpool.pop_back();
 			}
 		}

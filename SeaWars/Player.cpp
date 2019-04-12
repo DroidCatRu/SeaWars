@@ -58,6 +58,10 @@ int Player::setKilled(int i, int g) {
 	return f;
 }
 
+int Player::ShipsLeft(int size) {
+	return board.ShipsLeft(size);
+}
+
 Ship Player::getShip(int i) {
 	return board.getShip(i);
 }
