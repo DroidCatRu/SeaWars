@@ -26,11 +26,5 @@ struct Position {
 	int y;
 	Position(int column = 0, int row = 0): x(column), y(row) {}
 };
-class utils
-{
-public:
-	utils();
-	~utils();
-};
 
 void setcolor(unsigned int color, unsigned int background_color);
