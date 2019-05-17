@@ -222,7 +222,7 @@ void aiplayer::removecell(int x, int y) {
 		cellsleft.erase(cellsleft.begin() + g);
 		cellsleft.shrink_to_fit();
 	}
-	cout << "Cells left: " << cellsleft.size() << endl;
+	//cout << "Cells left: " << cellsleft.size() << endl;
 }
 
 void aiplayer::shipKilled(Ship ship) {
