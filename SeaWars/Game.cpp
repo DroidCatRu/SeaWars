@@ -177,7 +177,6 @@ void Game::initpcboard() {
 			}
 		}
 	}
-	showboards();
 }
 
 void print_line(Player &p, int i) {
@@ -214,6 +213,10 @@ void Game::showboards() {
 	setcolor(WHITE, BLACK);
 	//COORD coord{ 0,0 };
 	//COORD in{ 0,16 };
+	//SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	//for (int i = 0; i < 18; i++) {
+	//	cout << setw(78) << " " << endl;
+	//}
 	//SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	cout << setw(14) << "Your board:";
 	cout << setw(14 + 14) << "Enemy's board:" << endl;
@@ -299,9 +302,10 @@ bool Game::pcshoot() {
 	}
 	else {
 		pc.empty(y, x);
+		showboards();
 	}
 	//shoot again
-	showboards();
+	//showboards();
 	return true;
 }
 
@@ -314,8 +318,9 @@ bool Game::playershoot() {
 	y = 1 + rand() % 10;*/
 
 	if (x < 'A' || (x > 'J' && x < 'a') || x > 'j' || y < 1 || y > 10) {
-		cout << "Try again" << endl;
+		//cout << "Try again" << endl;
 		cin.clear();
+		while (cin.get() != '\n');
 	}
 	else {
 		y = y - 1;
@@ -349,7 +354,7 @@ bool Game::playershoot() {
 		}
 		//shoot again
 	}
-	showboards();
+	//showboards();
 	return true;
 }
 
